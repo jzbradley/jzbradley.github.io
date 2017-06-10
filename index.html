@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/uikit.min.css"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/uikit.min.js"></script>
+    <script src="js/uikit-icons.min.js"></script>
+    <script type="text/javascript">
+        var canvas;
+        var ctx;
+        var circleR;
+        var timeout = 0;
+        var often = 0.25;
+        var light = "rgb(180,180,180)";
+        var lightLight = "rgb(200,200,200)";
+
+        function init(){
+            canvas = document.getElementById("canvas");
+            ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            circleR = canvas.width / 4;
+            drawHexes();
+        }
+
+        function drawHexes() {
+            for (var i = 0; i < 25; i++) {
+                for (var a = 0; a < 90; a++) {
+                    setTimeout("drawHex("+a+");", 100 * timeout);
+                    timeout++;
+                }
+            }
+        }
+
+        function drawHex(a) {
+
+            ctx.fillStyle = "rgba(255,255,255,0.1)";
+            if (a > 85)
+                ctx.fillRect(0, 0, canvas.width, canvas.width);
+
+            var numberOfSides = 6;
+
+            var angle = 0;
+            if (a % 2 === 0)
+                angle = Math.PI / numberOfSides;
+
+            ctx.beginPath();
+
+            var size = 8 + Math.floor(Math.random() * 8) * 2 * 2;
+            var cx = canvas.width * Math.random();
+            var cy = canvas.height * Math.random();
+
+            var x = cx + size * Math.cos(angle);
+            var y = cy + size * Math.sin(angle);
+            ctx.moveTo(x, y);
+
+            var n = 2 * Math.PI / numberOfSides;
+            for (var i = 1; i <= numberOfSides;i++) {
+                x = cx + size * Math.cos(angle +i * n);
+                y = cy + size * Math.sin(angle +i * n);
+                ctx.lineTo (x, y);
+            }
+
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 0.1;
+            ctx.stroke();
+        }
+
+    </script>
+    <title>Portfoliio of JZ Bradley</title>
+</head>
+<body onload="init();">
+<canvas style="position: absolute; top: 0; left: 0;z-index:-1" id="canvas"></canvas>
+</body>
+</html>
