@@ -16,24 +16,30 @@
     <script type="text/javascript">
         var canvas;
         var ctx;
+        var shouldResize;
+        var currentTimeout;
 
         function init() {
             canvas = document.getElementById("canvas");
             ctx = canvas.getContext("2d");
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            shouldResize = false;
             drawPattern(200);
         }
 
         function drawPattern(timeout) {
-
+            if (shouldResize) {
+                init();
+                return;
+            }
             ctx.fillStyle = "rgba(255,255,255,0.1)";
             if (timeout > 1)
                 ctx.fillRect(0, 0, canvas.width, canvas.width);
 
             var size = 32;
-            var xCount = canvas.width / size;
-            var yCount = canvas.height / size;
+            var xCount = (canvas.width + size*0.5) / size;
+            var yCount = (canvas.height + size*0.5) / size;
             for (var x = 0; x < xCount; x++) {
                 for (var y = 0; y < yCount; y++) {
                     if (Math.random()>0.25)
@@ -57,7 +63,7 @@
                     }
                 }
             }
-            setTimeout("drawPattern("+timeout+");", timeout);
+            currentTimeout = setTimeout("drawPattern("+timeout+");", timeout);
         }
 
         function drawHexAt(cx,cy,angle,numberOfSides, size) {
@@ -79,9 +85,12 @@
             ctx.stroke();
         }
 
+        function onResize() {
+            shouldResize = true;
+        }
     </script>
 </head>
-<body onload="init();">
+<body onload="init();" onresize="onResize();">
 <canvas style="position: absolute; top: 0; left: 0;z-index:-1" id="canvas"></canvas>
     
 <div class="container">
