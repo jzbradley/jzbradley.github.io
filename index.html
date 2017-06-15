@@ -2,75 +2,96 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/uikit.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <title>jzbradley.com</title>
+    <!--TODO: Page icon-->
+    <!--<link rel="icon" type="image/png" href="">-->
+
     <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/uikit.min.js"></script>
-    <script src="js/uikit-icons.min.js"></script>
+    <!--Skeleton 2.0.4-->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <!-- Background -->
     <script type="text/javascript">
         var canvas;
         var ctx;
-        var circleR;
-        var timeout = 0;
-        var often = 0.25;
-        var light = "rgb(180,180,180)";
-        var lightLight = "rgb(200,200,200)";
 
-        function init(){
+        function init() {
             canvas = document.getElementById("canvas");
             ctx = canvas.getContext("2d");
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            circleR = canvas.width / 4;
-            drawHexes();
+            drawPattern(200);
         }
 
-        function drawHexes() {
-            for (var i = 0; i < 25; i++) {
-                for (var a = 0; a < 90; a++) {
-                    setTimeout("drawHex("+a+");", 100 * timeout);
-                    timeout++;
-                }
-            }
-        }
-
-        function drawHex(a) {
+        function drawPattern(timeout) {
 
             ctx.fillStyle = "rgba(255,255,255,0.1)";
-            if (a > 85)
+            if (timeout > 1)
                 ctx.fillRect(0, 0, canvas.width, canvas.width);
 
-            var numberOfSides = 6;
+            var size = 32;
+            var xCount = canvas.width / size;
+            var yCount = canvas.height / size;
+            for (var x = 0; x < xCount; x++) {
+                for (var y = 0; y < yCount; y++) {
+                    if (Math.random()>0.25)
+                        drawHexAt(x * size, y * size + 16, 0, 6, size);
+                    var ax = Math.random() * (canvas.width + canvas.height);
+                    if (Math.random() < x/xCount) {
+                        ctx.beginPath();
+                        ctx.moveTo(0, ax);
+                        ctx.lineTo(ax, 0);
+                        ctx.strokeStyle = "rgba(255,255,255,0.08)";
+                        ctx.lineWidth = 8;
+                        ctx.stroke();
+                    }
+                    if (Math.random() < y / yCount) {
+                        ctx.beginPath();
+                        ctx.moveTo(ax, 0);
+                        ctx.lineTo(ax, canvas.height);
+                        ctx.strokeStyle = "rgba(255,255,255,0.08)";
+                        ctx.lineWidth = 16;
+                        ctx.stroke();
+                    }
+                }
+            }
+            setTimeout("drawPattern("+timeout+");", timeout);
+        }
 
-            var angle = 0;
-            if (a % 2 === 0)
-                angle = Math.PI / numberOfSides;
+        function drawHexAt(cx,cy,angle,numberOfSides, size) {
 
             ctx.beginPath();
-
-            var size = 8 + Math.floor(Math.random() * 8) * 2 * 2;
-            var cx = canvas.width * Math.random();
-            var cy = canvas.height * Math.random();
-
             var x = cx + size * Math.cos(angle);
             var y = cy + size * Math.sin(angle);
             ctx.moveTo(x, y);
 
             var n = 2 * Math.PI / numberOfSides;
-            for (var i = 1; i <= numberOfSides;i++) {
-                x = cx + size * Math.cos(angle +i * n);
-                y = cy + size * Math.sin(angle +i * n);
-                ctx.lineTo (x, y);
+            for (var i = 1; i <= numberOfSides; i++) {
+                x = cx + size * Math.cos(angle + i * n);
+                y = cy + size * Math.sin(angle + i * n);
+                ctx.lineTo(x, y);
             }
 
-            ctx.strokeStyle = "black";
+            ctx.strokeStyle = "rgba(0,0,0,0.5)";
             ctx.lineWidth = 0.1;
             ctx.stroke();
         }
 
     </script>
-    <title></title>
 </head>
 <body onload="init();">
 <canvas style="position: absolute; top: 0; left: 0;z-index:-1" id="canvas"></canvas>
+    
+<div class="container">
+    <div class="row">
+        <div class="one-half column" style="margin-top: 25%">
+            <h4>Hello.</h4>
+            <p>This domain is under construction. I hope you will check back when it's done.</p>
+            <p>- JZ</p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
