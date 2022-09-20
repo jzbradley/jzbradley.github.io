@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Code Tool</title>
+<link rel="stylesheet" href="Skeleton-2.0.4/css/normalize.css">
+<link rel="stylesheet" href="Skeleton-2.0.4/css/skeleton.css">
+<!-- <link rel="icon" type="image/x-icon" href="favicon.ico"> -->
+</head>
+<body>
+<div class="container">
+<form id="qr-parameters">
+    <label for="qr-text">Text</label>
+    <textarea class="u-full-width" placeholder="Text content here." id="qr-text" name="text">https://www.example.com</textarea>
+    <div class="row">
+        <div class="six columns">
+        <label for="dark-color">Dark Color</label>
+        <input class="u-full-width" type="color" value="#000000" id="dark-color" name="colorDark">
+        </div>
+        <div class="six columns">
+            <label for="light-color">Light Color</label>
+            <input class="u-full-width" type="color" value="#ffffff" id="light-color" name="colorLight">
+        </div>
+    </div>
+    <div class="row">
+        <div class="six columns">
+            <label for="size-width">Size (px)</label>
+            <input id="size-width" type="number" value="128" name="width">
+        </div>
+        <div class="six columns">
+            <label for="error-correction">Error Correction Level</label>
+            <select id="error-correction" name="correctLevel">
+                <option value="H" selected>High (30%, recommended)</option>
+                <option value="Q">Quartile (25%)</option>
+                <option value="M">Medium (15%)</option>
+                <option value="L">Low (7%)</option>
+            </select>
+        </div>
+    </div>
+    <!-- <label class="example-send-yourself-copy">
+        <input type="checkbox">
+        <span class="label-body">Send a copy to yourself</span>
+    </label> -->
+    <input class="button-primary" type="button" value="Generate" onclick="generate()">
+    <div class="row">
+        <div class="six columns">
+            <label for="qrcode-img">PNG image</label>
+            <div id="qrcode-img"></div>
+        </div>
+        <div class="six columns">
+            <label for="qrcode-svg">SVG vector image</label>
+            <div id="qrcode-svg"></div>
+        </div>
+    </div>
+    </form>
+    </div>
+      <script src="qrcode.js"></script>
+      <script src="render.js"></script>
+<script>
+  
+  generate();
+</script>
+</body>
+</html>
