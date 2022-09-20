@@ -73,13 +73,14 @@ function convertImage(img, metadata) {
         w = img.width;
 
     for (var i = 0; i < data.length; i += 4) {
-      if (data[i + 3] <= 0) continue;
-      const [a,b,c,d]=data.slice(i,i+3);
-      const color =`${a},${b},${c},${d}`;
-      colors[color] = colors[color] || [];
-      const x = (i / 4) % w;
-      const y = Math.floor(i / 4 / w);
-      colors[color].push([x, y]);
+      if (data[i + 3] > 0) {
+        const color =
+          data[i] + "," + data[i + 1] + "," + data[i + 2] + "," + data[i + 3];
+        colors[color] = colors[color] || [];
+        const x = (i / 4) % w;
+        const y = Math.floor(i / 4 / w);
+        colors[color].push([x, y]);
+      }
     }
 
     return colors;
