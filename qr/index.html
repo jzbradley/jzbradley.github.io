@@ -7,10 +7,11 @@
 <title>QR Code Tool</title>
 <link rel="stylesheet" href="Skeleton-2.0.4/css/normalize.css">
 <link rel="stylesheet" href="Skeleton-2.0.4/css/skeleton.css">
-<!-- <link rel="icon" type="image/x-icon" href="favicon.ico"> -->
 </head>
 <body>
 <div class="container">
+    <h1>QR Code tool</h1>
+    <p>This is a minimalist QR code generator. Fill in the parameters below and click <a onclick="document.getElementById('button-generate').click();return false;">Generate</a> to create a new code.</p>
 <form id="qr-parameters">
     <label for="qr-text">Text</label>
     <textarea class="u-full-width" placeholder="Text content here." id="qr-text" name="text">https://www.example.com</textarea>
@@ -39,14 +40,12 @@
             </select>
         </div>
     </div>
-    <!-- <label class="example-send-yourself-copy">
-        <input type="checkbox">
-        <span class="label-body">Send a copy to yourself</span>
-    </label> -->
     <input class="button-primary" type="button" value="Generate" onclick="generate()">
+    <h4>Results</h4>
+    <p>Click the images below to download their respective versions.</p>
     <div class="row">
         <div class="six columns">
-            <label for="qrcode-img">PNG image</label>
+            <label for="qrcode-img">PNG raster image</label>
             <div id="qrcode-img"></div>
         </div>
         <div class="six columns">
