@@ -157,7 +157,7 @@ function generate() {
   parameters.correctLevel = QRCode.CorrectLevel[parameters.correctLevel];
   qrCode.div.img.innerHTML = "";
   qrCode.gen = new QRCode(qrCode.div.img, parameters);
-  const img = qrCode.gen._oDrawing._oContext.getImageData(
+  const img = qrCode.gen.drawing._oContext.getImageData(
     0,
     0,
     parameters.width,
