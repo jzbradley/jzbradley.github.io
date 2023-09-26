@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rust Cheatsheet</title>
+    <link href="prism.css" rel="stylesheet" />
+    <link href="index.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>Rust Cheatsheet</h1>
+    <article>
+      <h2>Iterators</h2>
+      <dl>
+        <dt>
+          <h3><dfn id="def-map">map</dfn></h3>: Transforms each element of an iterator
+          using a function/closure.
+        </dt>
+        <dd><h4>Example</h4>
+          <pre><code class="language-rust">let numbers = vec![1, 2, 3, 4, 5];
+let squared: Vec<_> = numbers.iter().map(|&x| x * x).collect();
+println!("{:?}", squared);</code></pre><h4>Output</h4>
+          <pre><samp>[1, 4, 9, 16, 25]</samp></pre>
+        </dd>
+
+        <dt>
+          <h3><dfn id="def-filter">filter</dfn></h3>: Filters the elements of an iterator
+          based on a predicate.
+        </dt>
+        <dd><h4>Example</h4>
+          <pre><code class="language-rust">let numbers = vec![1, 2, 3, 4, 5];
+let evens: Vec<_> = numbers.iter().filter(|&&x| x % 2 == 0).collect();
+println!("{:?}", evens);</code></pre><h4>Output</h4>
+          <pre><samp>[2, 4]</samp></pre>
+        </dd>
+
+        <dt>
+          <h3><dfn id="def-fold">fold</dfn></h3>: (equivalent to `reduce` in some
+          languages):** Accumulates the elements of an iterator.
+        </dt>
+        <dd><h4>Example</h4>
+          <pre><code class="language-rust">let numbers = vec![1, 2, 3, 4, 5];
+let sum = numbers.iter().fold(0, |acc, &x| acc + x);
+println!("{}", sum);</code></pre><h4>Output</h4>
+          <pre><samp>15</samp></pre>
+        </dd>
+
+        <dt>
+          <h3><dfn id="def-all">all</dfn></h3>: Checks if all elements of an iterator
+          satisfy a predicate.
+        </dt>
+        <dd><h4>Example</h4>
+          <pre><code class="language-rust">let numbers = vec![2, 4, 6, 8, 10];
+let are_all_even = numbers.iter().all(|&x| x % 2 == 0);
+println!("{}", are_all_even);</code></pre><h4>Output</h4>
+          <pre><samp>true</samp></pre>
+        </dd>
+
+        <dt>
+          <h3><dfn id="def-any">any</dfn></h3>: Checks if any element of an iterator
+          satisfies a predicate.
+        </dt>
+        <dd><h4>Example</h4>
+          <pre><code class="language-rust">let numbers = vec![1, 2, 3, 4, 5];
+let has_even = numbers.iter().any(|&x| x % 2 == 0);
+println!("{}", has_even);</code></pre><h4>Output</h4>
+          <pre><samp>true</samp></pre>
+        </dd>
+
+        <dt>
+          <h3><dfn id="def-find">find</dfn></h3>: Finds the first element satisfying a
+          predicate.
+        </dt>
+        <dd><h4>Example</h4>
+          <pre><code class="language-rust">let numbers = vec![1, 2, 3, 4, 5];
+let first_even = numbers.iter().find(|&&x| x % 2 == 0);
+println!("{:?}", first_even);</code></pre><h4>Output</h4>
+          <pre><samp>Some(&2)</samp></pre>
+        </dd>
+
+        <dt>
+          <h3><dfn id="def-collect">collect</dfn></h3>: Collects the elements of an
+          iterator into a collection.
+        </dt>
+        <dd><h4>Example</h4>
+          <pre><code class="language-rust">let numbers = vec![1, 2, 3, 4, 5];
+let evens: Vec<_> = numbers.iter().filter(|&&x| x % 2 == 0).collect();
+println!("{:?}", evens);</code></pre><h4>Output</h4>
+          <pre><samp>[2, 4]</samp></pre>
+        </dd>
+
+        <dt>
+          <h3><dfn id="def-flat_map">flat_map</dfn></h3>: Maps each element to an
+          iterator and flattens the result into a single iterator.
+        </dt>
+        <dd><h4>Example</h4>
+          <pre><code class="language-rust">let numbers = vec![vec![1, 2], vec![3, 4], vec![5, 6]];
+let flat: Vec<_> = numbers.iter().flat_map(|x| x.iter()).collect();
+println!("{:?}", flat);</code></pre><h4>Output</h4>
+          <pre><samp>[1, 2, 3, 4, 5, 6]</samp></pre>
+        </dd>
+      </dl>
+    </article>
+    <script src="prism.js"></script>
+    <script src="toc.js"></script>
+  </body>
+</html>
